@@ -61,4 +61,3 @@ This project was created as part of an educational exercise to showcase how real
   - `StandardTimeAdapter` – Converts 12-hour format (9:00 AM)  
 - Location: `com.astronaut.patterns.structural.adapter`
 
-## Project Structure
