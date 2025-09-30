@@ -1,0 +1,16 @@
+﻿# Java / build
+bin/
+build/
+target/
+*.class
+
+# IntelliJ / VSCode
+.idea/
+.vscode/
+
+# Logs
+**/logs/
+
+# OS
+Thumbs.db
+.DS_Store
