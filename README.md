@@ -38,80 +38,74 @@ This project is a comprehensive solution for **Exercise 1** (Design Patterns Sho
 * Performance optimized
 
 ---
+## Design Patterns Implemented
 
-## 🎨 Design Patterns Implemented
+### Behavioral Patterns  
 
-### Behavioral Patterns
+#### 1. Observer Pattern – Task Conflict Notification System  
 
-#### 1. Observer Pattern – Task Conflict Notification System
+<img src="./Excercise 1/BehavioralPattern.jpg" width="400" height="400">
 
-<img src="./BehavioralPattern.jpg" alt="Behavioral Pattern Diagram" width="400" height="400"/>
+- **Purpose:** Automatically notify users when a newly created task conflicts with existing ones.  
+- **Implementation Details:**
+  - `TaskObserver` interface – defines update mechanism  
+  - `ConflictNotifier` – concrete observer that receives notifications  
+  - `TaskSubject` – manages observer subscriptions and broadcasts changes  
+- **Benefit:** Decouples the conflict detection logic from the main task manager.  
+- **Location:** `com.astronaut.patterns.behavioral.observer`
 
-* **Purpose:** Automatically notify users when task conflicts occur
-* **Implementation:**
+#### 2. Strategy Pattern – Dynamic Task Sorting  
 
-  * `TaskObserver` interface
-  * `ConflictNotifier` concrete observer
-  * `TaskSubject` manages observer subscriptions
-* **Location:** `com.astronaut.patterns.behavioral.observer`
-
-#### 2. Strategy Pattern – Dynamic Task Sorting
-
-* **Purpose:** Switch between different sorting algorithms at runtime
-* **Strategies:**
-
-  * `StartTimeSortStrategy` – Sort by start time
-  * `PrioritySortStrategy` – Sort by priority level
-* **Location:** `com.astronaut.patterns.behavioral.strategy`
-
----
-
-### Creational Patterns
-
-<img src="./CreationalPattern.drawio.png" alt="Creational Pattern Diagram" width="400" height="400"/>
-
-#### 3. Singleton Pattern – Schedule Manager
-
-* **Purpose:** Ensure single instance of the schedule manager throughout the application
-* **Features:**
-
-  * Thread-safe double-checked locking
-  * Centralized task management
-* **Location:** `com.astronaut.patterns.creational.singleton.ScheduleManager`
-
-#### 4. Factory Pattern – Task Creation with Validation
-
-* **Purpose:** Encapsulate task object creation with validation logic
-* **Components:**
-
-  * `TaskFactory` – Creates validated task objects
-  * `TaskValidator` – Validates all task inputs
-* **Location:** `com.astronaut.patterns.creational.factory`
+- **Purpose:** Switch between different sorting algorithms at runtime without changing core logic.  
+- **Strategies:**
+  - `StartTimeSortStrategy` – Sorts tasks by start time.  
+  - `PrioritySortStrategy` – Sorts tasks by priority level.  
+- **Benefit:** Makes sorting flexible and easily extendable.  
+- **Location:** `com.astronaut.patterns.behavioral.strategy`
 
 ---
 
-### Structural Patterns
+### Creational Patterns  
 
-<img src="./StructuralPattern.drawio.png" alt="Structural Pattern Diagram" width="400" height="400"/>
+<img src="./Excercise 1/CreationalPattern.drawio.png" width="400" height="400">
 
-#### 5. Decorator Pattern – Enhanced Task Features
+#### 3. Singleton Pattern – Schedule Manager  
+- **Purpose:** Ensure only one instance of the schedule manager exists throughout the application.  
+- **Features:**
+  - Thread-safe double-checked locking.  
+  - Centralized task management.  
+- **Benefit:** Eliminates duplicate managers and ensures consistency.  
+- **Location:** `com.astronaut.patterns.creational.singleton.ScheduleManager`
 
-* **Purpose:** Dynamically add features to tasks without modifying the base class
-* **Decorators:**
+#### 4. Factory Pattern – Task Creation with Validation  
+- **Purpose:** Encapsulate and centralize task object creation with validation logic.  
+- **Components:**
+  - `TaskFactory` – Creates validated task objects.  
+  - `TaskValidator` – Ensures all inputs meet required rules.  
+- **Benefit:** Clean separation of validation and creation logic.  
+- **Location:** `com.astronaut.patterns.creational.factory`
 
-  * `ReminderDecorator` – Adds reminder functionality
-  * `NotesDecorator` – Adds notes to tasks
-* **Location:** `com.astronaut.patterns.structural.decorator`
+---
 
-#### 6. Adapter Pattern – Multiple Time Format Support
+### Structural Patterns  
 
-* **Purpose:** Convert different time formats to a standard format
-* **Adapters:**
+<img src="./Excercise 1/StructuralPattern.drawio.png" width="400" height="400">
 
-  * `MilitaryTimeAdapter` – Converts military time (0900, 1430)
-  * `StandardTimeAdapter` – Converts 12-hour format (9:00 AM)
-* **Location:** `com.astronaut.patterns.structural.adapter`
+#### 5. Decorator Pattern – Enhanced Task Features  
+- **Purpose:** Dynamically add features to tasks without modifying the base class.  
+- **Decorators:**
+  - `ReminderDecorator` – Adds reminder functionality to a task.  
+  - `NotesDecorator` – Adds notes to tasks.  
+- **Benefit:** Extends task functionality in an open/closed principle-friendly way.  
+- **Location:** `com.astronaut.patterns.structural.decorator`
 
+#### 6. Adapter Pattern – Multiple Time Format Support  
+- **Purpose:** Convert different time formats (12-hour, military) into a standard format for consistency.  
+- **Adapters:**
+  - `MilitaryTimeAdapter` – Converts military time (0900, 1430).  
+  - `StandardTimeAdapter` – Converts 12-hour format (9:00 AM).  
+- **Benefit:** Allows the scheduler to work with multiple time formats seamlessly.  
+- **Location:** `com.astronaut.patterns.structural.adapter`
 ---
 
 ## 🏗️ Architecture
@@ -149,18 +143,50 @@ This project is a comprehensive solution for **Exercise 1** (Design Patterns Sho
 astronaut-schedule-organizer/
 ├── src/main/java/com/astronaut/
 │   ├── Main.java
-│   ├── models/…
+│   ├── models/
+│   │   ├── Task.java
+│   │   ├── Priority.java
+│   │   └── TaskStatus.java
 │   ├── patterns/
-│   │   ├── behavioral/observer/…
-│   │   ├── behavioral/strategy/…
-│   │   ├── creational/singleton/…
-│   │   ├── creational/factory/…
-│   │   └── structural/…
-│   ├── services/…
-│   ├── exceptions/…
-│   ├── utils/…
-│   └── ui/…
-├── logs/application.log
+│   │   ├── behavioral/
+│   │   │   ├── observer/
+│   │   │   │   ├── TaskObserver.java
+│   │   │   │   ├── ConflictNotifier.java
+│   │   │   │   └── TaskSubject.java
+│   │   │   └── strategy/
+│   │   │       ├── SortStrategy.java
+│   │   │       ├── StartTimeSortStrategy.java
+│   │   │       └── PrioritySortStrategy.java
+│   │   ├── creational/
+│   │   │   ├── singleton/
+│   │   │   │   └── ScheduleManager.java
+│   │   │   └── factory/
+│   │   │       ├── TaskFactory.java
+│   │   │       └── TaskValidator.java
+│   │   └── structural/
+│   │       ├── decorator/
+│   │       │   ├── TaskDecorator.java
+│   │       │   ├── ReminderDecorator.java
+│   │       │   └── NotesDecorator.java
+│   │       └── adapter/
+│   │           ├── TimeFormatAdapter.java
+│   │           ├── MilitaryTimeAdapter.java
+│   │           └── StandardTimeAdapter.java
+│   ├── services/
+│   │   └── TaskService.java
+│   ├── exceptions/
+│   │   ├── TaskConflictException.java
+│   │   ├── InvalidTimeException.java
+│   │   └── TaskNotFoundException.java
+│   ├── utils/
+│   │   ├── Logger.java
+│   │   ├── TimeValidator.java
+│   │   └── InputValidator.java
+│   └── ui/
+│       ├── ConsoleUI.java
+│       └── MenuHandler.java
+├── logs/
+│   └── application.log
 └── README.md
 ```
 
@@ -192,32 +218,54 @@ java -cp bin com.astronaut.Main
 ### Adding a Task
 
 ```
+Enter your choice: 1
 Description: Morning Exercise
 Start Time: 07:00
 End Time: 08:00
 Priority: HIGH
+
 ✅ Task added successfully!
 ```
 
 ### Conflict Detection
 
 ```
+Enter your choice: 1
 Description: Team Meeting
 Start Time: 07:30
 End Time: 08:30
 Priority: MEDIUM
-⚠️ CONFLICT DETECTED!
+
+⚠️ CONFLICT DETECTED! Task 'Team Meeting' (07:30-08:30) 
+   conflicts with 'Morning Exercise' (07:00-08:00)
+❌ Task conflicts with existing task: Morning Exercise
 ```
 
 ### Viewing Tasks
 
 ```
+Enter your choice: 7
+
 ========== ALL TASKS ==========
 1. 07:00 - 08:00: Morning Exercise [High] (Pending)
 2. 09:00 - 10:00: Team Meeting [Medium] (Pending)
+3. 12:00 - 13:00: Lunch Break [Low] (Pending)
 ==============================
 ```
+### Adding Task with Reminder
 
+```
+Enter your choice: 11
+Description: Important Meeting
+Start Time: 14:00
+End Time: 15:00
+Priority: CRITICAL
+Reminder (minutes before): 15
+
+✅ Task added with reminder!
+   14:00 - 15:00: Important Meeting [Critical] (Pending) 
+   [Reminder: 15 min before at 13:45]
+```
 ---
 
 ## 🧪 Test Coverage
@@ -246,10 +294,20 @@ Priority: MEDIUM
 
 ---
 
-## 📝 Logging
+📝 Logging Mechanism
+Logging Levels
 
-* **Levels:** INFO, WARN, ERROR, DEBUG
-* **Output:** Console + `logs/application.log`
+INFO: Normal operations (task added, removed, etc.)
+WARN: Potential issues (conflicts detected)
+ERROR: Actual errors (validation failures)
+DEBUG: Detailed information for debugging
+
+Log Output
+
+Console: Real-time feedback to user
+File: Persistent log in logs/application.log
+
+Sample Log Entry
 
 Example:
 
